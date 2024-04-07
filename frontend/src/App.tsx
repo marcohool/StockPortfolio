@@ -4,15 +4,26 @@ import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
 import { searchCompanies } from "./api";
 import { CompanySearch } from "./company";
+import ListPortfolio from "./Components/Portfolio/ListPortfolio/ListPortfolio";
 
 function App() {
   const [search, setSearch] = useState<string>("");
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const onPortfolioCreate = async (e: SyntheticEvent) => {
+  const onPortfolioCreate = async (e: any) => {
     e.preventDefault();
-    console.log(e);
+
+    const exists = portfolioValues.find((value) => value === e.target[0].value);
+
+    if (exists) {
+      setServerError("Company already exists in portfolio");
+      return;
+    }
+
+    const updatedPortfolio = [...portfolioValues, e.target[0].value];
+    setPortfolioValues(updatedPortfolio);
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +49,7 @@ function App() {
         search={search}
         handleSearchChange={handleSearchChange}
       />
+      <ListPortfolio portfolioValues={portfolioValues} />
       {serverError && <h1>{serverError}</h1>}
       <CardList
         searchResults={searchResult}
