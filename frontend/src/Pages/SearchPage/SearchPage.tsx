@@ -1,5 +1,4 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
-import { Hero } from "../../Components/Hero/Hero";
 import Search from "../../Components/Search/Search";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfolio";
 import CardList from "../../Components/CardList/CardList";
@@ -55,7 +54,6 @@ export const SearchPage: React.FC<Props> = (props) => {
 
   return (
     <div className="Search">
-      <Hero />
       <Search
         onSearchSubmit={onSearchSubmit}
         search={search}
