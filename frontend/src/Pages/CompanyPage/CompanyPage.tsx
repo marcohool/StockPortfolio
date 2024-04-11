@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { CompanyProfile } from "../../company";
 import { getCompanyProfile } from "../../api";
+import { Sidebar } from "../../Components/Sidebar/Sidebar";
+import { CompanyDashboard } from "../../Components/CompanyDashboard/CompanyDashboard";
 
 interface Props {}
 
@@ -24,6 +26,15 @@ export const CompanyPage: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <>{company ? <div>{company.companyName}</div> : <div>Loading...</div>}</>
+    <>
+      {company ? (
+        <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
+          <Sidebar />
+          <CompanyDashboard />
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </>
   );
 };
