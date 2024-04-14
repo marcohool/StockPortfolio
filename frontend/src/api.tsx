@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   CompanyBalanceSheet,
+  CompanyCashFlow,
   CompanyIncomeStatement,
   CompanyKeyMetrics,
   CompanyProfile,
@@ -92,6 +93,24 @@ export const getBalanceSheet = async (
   try {
     return await axios.get<CompanyBalanceSheet[]>(
       `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+      return { data: [], error: error.message };
+    } else {
+      console.log("unexpected error: ", error);
+      return { data: [], error: "An unexpected error has occurred." };
+    }
+  }
+};
+
+export const getCashFlowStatement = async (
+  query: string,
+): Promise<ApiResponse<CompanyCashFlow[]>> => {
+  try {
+    return await axios.get<CompanyCashFlow[]>(
+      `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
