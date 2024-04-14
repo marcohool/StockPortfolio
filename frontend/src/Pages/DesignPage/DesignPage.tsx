@@ -1,8 +1,17 @@
 import React from "react";
-import RatioList from "../../Components/RadioList/RadioList";
+import RatioList from "../../Components/RatioList/RatioList";
 import { Table } from "../../Components/Table/Table";
+import { CompanyKeyMetrics } from "../../company";
+import { testIncomeStatementData } from "../../Components/Table/testData";
 
 interface Props {}
+
+const tableConfig = [
+  {
+    label: "Market Cap",
+    render: (company: CompanyKeyMetrics) => company.marketCapTTM,
+  },
+];
 
 export const DesignPage: React.FC<Props> = (props) => {
   return (
@@ -12,7 +21,7 @@ export const DesignPage: React.FC<Props> = (props) => {
         This is StockPortfolio's design page. This is where we will house
         various design aspects of the app.
       </h2>
-      <RatioList />
+      <RatioList data={testIncomeStatementData} config={tableConfig} />
       <Table />
     </div>
   );

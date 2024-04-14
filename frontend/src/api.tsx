@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CompanyProfile, CompanySearch } from "./company";
+import { CompanyKeyMetrics, CompanyProfile, CompanySearch } from "./company";
 
 export interface SearchResponse {
   data: CompanySearch[];
@@ -32,6 +32,24 @@ export const getCompanyProfile = async (
   try {
     return await axios.get<CompanyProfile[]>(
       `https://financialmodelingprep.com/api/v3/profile/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("error message: ", error.message);
+      return { data: [], error: error.message };
+    } else {
+      console.log("unexpected error: ", error);
+      return { data: [], error: "An unexpected error has occurred." };
+    }
+  }
+};
+
+export const getKeyMetrics = async (
+  query: string,
+): Promise<ApiResponse<CompanyKeyMetrics[]>> => {
+  try {
+    return await axios.get<CompanyKeyMetrics[]>(
+      `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
