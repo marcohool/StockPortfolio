@@ -22,7 +22,7 @@ export const DesignPage: React.FC<Props> = (props) => {
         various design aspects of the app.
       </h2>
       <RatioList data={testIncomeStatementData} config={tableConfig} />
-      <Table />
+      <Table data={testIncomeStatementData} config={tableConfig} />
     </div>
   );
 };
