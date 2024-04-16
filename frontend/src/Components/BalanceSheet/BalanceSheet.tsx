@@ -3,6 +3,7 @@ import { CompanyBalanceSheet } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 interface Props {}
 
@@ -79,7 +80,7 @@ const BalanceSheet: React.FC<Props> = (props) => {
       {balanceSheet ? (
         <RatioList config={config} data={balanceSheet} />
       ) : (
-        "Loading..."
+        <Spinner />
       )}
     </div>
   );

@@ -5,6 +5,7 @@ import { getCompanyProfile } from "../../api";
 import { Sidebar } from "../../Components/Sidebar/Sidebar";
 import { CompanyDashboard } from "../../Components/CompanyDashboard/CompanyDashboard";
 import { Tile } from "../../Components/Tile/Tile";
+import Spinner from "../../Components/Spinner/Spinner";
 
 interface Props {}
 
@@ -42,7 +43,7 @@ export const CompanyPage: React.FC<Props> = (props) => {
           </CompanyDashboard>
         </div>
       ) : (
-        <div>Loading...</div>
+        <Spinner />
       )}
     </>
   );

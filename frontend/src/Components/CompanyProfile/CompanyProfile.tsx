@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { CompanyKeyMetrics } from "../../company";
 import { getKeyMetrics } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 interface Props {}
 
@@ -52,7 +53,7 @@ export const CompanyProfile: React.FC<Props> = (props) => {
           <RatioList data={companyData} config={tableConfig} />
         </>
       ) : (
-        <>Loading...</>
+        <Spinner />
       )}
     </div>
   );

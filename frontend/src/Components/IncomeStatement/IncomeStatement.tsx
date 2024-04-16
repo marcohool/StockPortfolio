@@ -3,6 +3,7 @@ import { CompanyIncomeStatement } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import { getIncomeStatement, getKeyMetrics } from "../../api";
 import { Table } from "../Table/Table";
+import Spinner from "../Spinner/Spinner";
 
 interface Props {}
 
@@ -83,7 +84,7 @@ export const IncomeStatement: React.FC<Props> = (props) => {
           <Table config={configs} data={incomeStatement} />{" "}
         </>
       ) : (
-        <>Loading...</>
+        <Spinner />
       )}
     </>
   );

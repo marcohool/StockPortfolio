@@ -37,7 +37,7 @@ export const Sidebar: React.FC<Props> = (props) => {
                 <h6 className="ml-3">Balance Sheet</h6>
               </Link>
               <Link
-                to="cashflow-statement"
+                to="cash-flow-statement"
                 className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pd-4 no-underline"
               >
                 <FaHome />
