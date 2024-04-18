@@ -35,18 +35,20 @@ export const CompanyPage: React.FC<Props> = (props) => {
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
           <CompanyDashboard ticker={ticker!}>
-            <Tile title="Company Name" subtitle={company.companyName} />
-            <Tile title="Sector" subtitle={company.sector} />
-            <Tile
-              title="Price"
-              subtitle={formatLargeMonetaryNumber(company.price.toString())}
-            />
-            <Tile
-              title="Market Cap"
-              subtitle={formatLargeMonetaryNumber(company.mktCap.toString())}
-            />
+            <div className="grid grid-cols-4 gap-6 w-full">
+              <Tile title="Company Name" subtitle={company.companyName} />
+              <Tile title="Sector" subtitle={company.sector} />
+              <Tile
+                title="Price"
+                subtitle={formatLargeMonetaryNumber(company.price.toString())}
+              />
+              <Tile
+                title="Market Cap"
+                subtitle={formatLargeMonetaryNumber(company.mktCap.toString())}
+              />
+            </div>
             <TenKFinder ticker={company.symbol} />
-            <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
+            <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1">
               {company.description}
             </p>
           </CompanyDashboard>
