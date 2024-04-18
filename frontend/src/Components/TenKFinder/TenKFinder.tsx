@@ -20,7 +20,7 @@ const TenKFinder: React.FC<Props> = ({ ticker }) => {
   }, []);
 
   return (
-    <div className="inline-flex rounded-md shadow-sm" role="group">
+    <div className="inline-flex space-x-4 rounded-md shadow-sm" role="group">
       {companyData ? (
         companyData?.slice(0, 5).map((tenK) => {
           return <TenKFinderItem tenK={tenK} />;
