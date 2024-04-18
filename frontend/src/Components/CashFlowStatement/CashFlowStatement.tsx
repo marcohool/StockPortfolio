@@ -66,9 +66,7 @@ const CashFlowStatement: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <div>
-      {cashFlow ? <Table config={config} data={cashFlow} /> : <Spinner />}
-    </div>
+    <>{cashFlow ? <Table config={config} data={cashFlow} /> : <Spinner />}</>
   );
 };
 

@@ -94,7 +94,7 @@ export const CompanyProfile: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <div>
+    <>
       {companyData ? (
         <>
           <RatioList data={companyData} config={tableConfig} />
@@ -102,6 +102,6 @@ export const CompanyProfile: React.FC<Props> = (props) => {
       ) : (
         <Spinner />
       )}
-    </div>
+    </>
   );
 };

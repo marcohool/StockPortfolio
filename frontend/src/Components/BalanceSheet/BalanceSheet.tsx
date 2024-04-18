@@ -90,13 +90,13 @@ const BalanceSheet: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <div>
+    <>
       {balanceSheet ? (
         <RatioList config={config} data={balanceSheet} />
       ) : (
         <Spinner />
       )}
-    </div>
+    </>
   );
 };
 

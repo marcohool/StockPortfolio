@@ -8,7 +8,7 @@ interface Props {
 const RatioList: React.FC<Props> = ({ config, data }: Props) => {
   const renderedCells = config.map((row: any) => {
     return (
-      <li className="py-3 sm:py-4">
+      <li className="py-6 sm:py-6">
         <div className="flex items-center space-x-4">
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">
@@ -27,7 +27,7 @@ const RatioList: React.FC<Props> = ({ config, data }: Props) => {
   });
 
   return (
-    <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 h-full">
+    <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 w-full">
       <ul className="divide-y divided-gray-200">{renderedCells}</ul>
     </div>
   );
