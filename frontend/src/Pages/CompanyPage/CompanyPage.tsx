@@ -7,6 +7,7 @@ import { CompanyDashboard } from "../../Components/CompanyDashboard/CompanyDashb
 import { Tile } from "../../Components/Tile/Tile";
 import Spinner from "../../Components/Spinner/Spinner";
 import TenKFinder from "../../Components/TenKFinder/TenKFinder";
+import { formatLargeMonetaryNumber } from "../../Components/Helpers/NumberFormatting";
 
 interface Props {}
 
@@ -36,8 +37,14 @@ export const CompanyPage: React.FC<Props> = (props) => {
           <CompanyDashboard ticker={ticker!}>
             <Tile title="Company Name" subtitle={company.companyName} />
             <Tile title="Sector" subtitle={company.sector} />
-            <Tile title="Price" subtitle={company.price.toString()} />
-            <Tile title="Market Cap" subtitle={company.mktCap.toString()} />
+            <Tile
+              title="Price"
+              subtitle={formatLargeMonetaryNumber(company.price.toString())}
+            />
+            <Tile
+              title="Market Cap"
+              subtitle={formatLargeMonetaryNumber(company.mktCap.toString())}
+            />
             <TenKFinder ticker={company.symbol} />
             <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
               {company.description}
