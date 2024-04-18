@@ -6,6 +6,7 @@ import { Sidebar } from "../../Components/Sidebar/Sidebar";
 import { CompanyDashboard } from "../../Components/CompanyDashboard/CompanyDashboard";
 import { Tile } from "../../Components/Tile/Tile";
 import Spinner from "../../Components/Spinner/Spinner";
+import TenKFinder from "../../Components/TenKFinder/TenKFinder";
 
 interface Props {}
 
@@ -37,6 +38,7 @@ export const CompanyPage: React.FC<Props> = (props) => {
             <Tile title="Sector" subtitle={company.sector} />
             <Tile title="Price" subtitle={company.price.toString()} />
             <Tile title="Market Cap" subtitle={company.mktCap.toString()} />
+            <TenKFinder ticker={company.symbol} />
             <p className="bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4">
               {company.description}
             </p>
