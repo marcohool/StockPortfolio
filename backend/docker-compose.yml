@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  stockportfolio.api:
+    image: ${DOCKER_REGISTRY-}stockportfolioapi
+    build:
+      context: .
+      dockerfile: StockPortfolio.API/Dockerfile
