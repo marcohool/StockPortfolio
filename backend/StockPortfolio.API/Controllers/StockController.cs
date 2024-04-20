@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockPortfolio.API.Data;
+using StockPortfolio.API.Dtos.Stock;
 using StockPortfolio.API.Mappers;
+using StockPortfolio.API.Models;
 
 namespace StockPortfolio.API.Controllers
 {
@@ -32,6 +34,20 @@ namespace StockPortfolio.API.Controllers
             }
 
             return Ok(stock.ToStockDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+        {
+            Stock stockModel = stockDto.ToStockFromCreateDTO();
+            _context.Stocks.Add(stockModel);
+            _context.SaveChanges();
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = stockModel.Id },
+                stockModel.ToStockDto()
+            );
         }
     }
 }
