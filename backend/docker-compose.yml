@@ -3,6 +3,7 @@ version: '3.4'
 services:
   stockportfolio.api:
     image: ${DOCKER_REGISTRY-}stockportfolioapi
+    container_name: stockportfolio-api
     build:
       context: .
       dockerfile: StockPortfolio.API/Dockerfile
@@ -14,6 +15,7 @@ services:
 
   sqlserver:
     restart: unless-stopped
+    container_name: stockportfolio-sqlserver
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     environment:
       MSSQL_SA_PASSWORD: "P@ssword123"
