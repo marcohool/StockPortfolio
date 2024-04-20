@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockPortfolio.API.Data;
+using StockPortfolio.API.Mappers;
 
 namespace StockPortfolio.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace StockPortfolio.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_context.Stocks.ToList());
+            return Ok(_context.Stocks.ToList().Select(s => s.ToStockDto()));
         }
 
         [HttpGet("{id}")]
@@ -30,7 +31,7 @@ namespace StockPortfolio.API.Controllers
                 return NotFound();
             }
 
-            return Ok(stock);
+            return Ok(stock.ToStockDto());
         }
     }
 }
