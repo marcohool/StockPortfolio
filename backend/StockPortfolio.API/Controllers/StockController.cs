@@ -49,5 +49,28 @@ namespace StockPortfolio.API.Controllers
                 stockModel.ToStockDto()
             );
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateStockRequestDto stockDto)
+        {
+            var stockModel = _context.Stocks.FirstOrDefault(x => x.Id == id);
+
+            if (stockModel == null)
+            {
+                return NotFound();
+            }
+
+            stockModel.Symbol = stockDto.Symbol;
+            stockModel.CompanyName = stockDto.CompanyName;
+            stockModel.Purchase = stockDto.Purchase;
+            stockModel.LastDiv = stockDto.LastDiv;
+            stockModel.Industry = stockDto.Industry;
+            stockModel.MarketCap = stockDto.MarketCap;
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
