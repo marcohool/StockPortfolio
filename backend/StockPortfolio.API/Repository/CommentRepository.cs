@@ -31,5 +31,19 @@ namespace StockPortfolio.API.Repository
 
             return comment;
         }
+
+        public async Task<Comment?> DeleteAsync(int id)
+        {
+            Comment? comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (comment is null)
+            {
+                return null;
+            }
+
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+            return comment;
+        }
     }
 }
