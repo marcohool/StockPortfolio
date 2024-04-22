@@ -23,5 +23,13 @@ namespace StockPortfolio.API.Repository
         {
             return await this._context.Comments.FindAsync(id);
         }
+
+        public async Task<Comment> CreateAsync(Comment comment)
+        {
+            await this._context.Comments.AddAsync(comment);
+            await this._context.SaveChangesAsync();
+
+            return comment;
+        }
     }
 }
