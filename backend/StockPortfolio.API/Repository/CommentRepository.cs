@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StockPortfolio.API.Data;
+using StockPortfolio.API.Dtos.Comment;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Models;
 
@@ -30,6 +31,23 @@ namespace StockPortfolio.API.Repository
             await this._context.SaveChangesAsync();
 
             return comment;
+        }
+
+        public async Task<Comment?> UpdateAsync(int id, UpdateCommentDto updateCommentDto)
+        {
+            var existingComment = await this._context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingComment is null)
+            {
+                return null;
+            }
+
+            existingComment.Title = updateCommentDto.Title;
+            existingComment.Content = updateCommentDto.Content;
+
+            await this._context.SaveChangesAsync();
+
+            return existingComment;
         }
 
         public async Task<Comment?> DeleteAsync(int id)

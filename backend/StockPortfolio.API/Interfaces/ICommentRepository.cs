@@ -1,4 +1,5 @@
-﻿using StockPortfolio.API.Models;
+﻿using StockPortfolio.API.Dtos.Comment;
+using StockPortfolio.API.Models;
 
 namespace StockPortfolio.API.Interfaces
 {
@@ -7,6 +8,7 @@ namespace StockPortfolio.API.Interfaces
         Task<List<Comment>> GetAllAsync();
         Task<Comment?> GetByIdAsync(int id);
         Task<Comment> CreateAsync(Comment comment);
+        Task<Comment?> UpdateAsync(int id, UpdateCommentDto updateCommentDto);
         Task<Comment?> DeleteAsync(int id);
     }
 }
