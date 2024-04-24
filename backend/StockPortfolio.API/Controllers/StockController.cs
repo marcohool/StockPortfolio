@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StockPortfolio.API.Data;
 using StockPortfolio.API.Dtos.Stock;
+using StockPortfolio.API.Helpers;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Mappers;
 using StockPortfolio.API.Models;
@@ -20,12 +21,12 @@ namespace StockPortfolio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var stocks = await this._stockRepo.GetAllAsync();
+            var stocks = await this._stockRepo.GetAllAsync(query);
             var stockDtos = stocks.Select(s => s.ToStockDto());
 
             return Ok(stockDtos);
