@@ -7,6 +7,7 @@ using StockPortfolio.API.Data;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Models;
 using StockPortfolio.API.Repository;
+using StockPortfolio.API.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +71,7 @@ builder
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
