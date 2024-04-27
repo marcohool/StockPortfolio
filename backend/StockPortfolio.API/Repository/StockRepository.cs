@@ -40,7 +40,10 @@ namespace StockPortfolio.API.Repository
 
         public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            IQueryable<Stock> stocks = _context.Stocks.Include(c => c.Comments).AsQueryable();
+            IQueryable<Stock> stocks = _context
+                .Stocks.Include(c => c.Comments)
+                .ThenInclude(a => a.AppUser)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(query.CompanyName))
             {

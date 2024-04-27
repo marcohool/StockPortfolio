@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using StockPortfolio.API.Dtos.Comment;
+using StockPortfolio.API.Extensions;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Mappers;
 using StockPortfolio.API.Models;
@@ -12,14 +14,17 @@ namespace StockPortfolio.API.Controllers
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IStockRepository _stockRepository;
+        private readonly UserManager<AppUser> _userManager;
 
         public CommentController(
             ICommentRepository commentRepository,
-            IStockRepository stockRepository
+            IStockRepository stockRepository,
+            UserManager<AppUser> userManager
         )
         {
             _commentRepository = commentRepository;
             _stockRepository = stockRepository;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -65,6 +70,10 @@ namespace StockPortfolio.API.Controllers
             }
 
             Comment comment = commentDto.ToCommentFromCreateDTO(stockId);
+
+            string username = User.GetUsername();
+            comment.AppUser = await _userManager.FindByNameAsync(username);
+
             await _commentRepository.CreateAsync(comment);
 
             return CreatedAtAction(
