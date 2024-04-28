@@ -120,6 +120,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(x =>
+    x.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        //.WithOrigins("http://localhost:3000")
+        .SetIsOriginAllowed(origin => true)
+);
+
 app.UseAuthentication();
 
 app.UseAuthorization();

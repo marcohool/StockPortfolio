@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StockPortfolio.API.Dtos.Comment;
 using StockPortfolio.API.Extensions;
+using StockPortfolio.API.Helpers;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Mappers;
 using StockPortfolio.API.Models;
@@ -31,12 +33,13 @@ namespace StockPortfolio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comments = await _commentRepository.GetAllAsync();
+            var comments = await _commentRepository.GetAllAsync(queryObject);
             var commentDtos = comments.Select(c => c.ToCommentDto());
 
             return Ok(commentDtos);
