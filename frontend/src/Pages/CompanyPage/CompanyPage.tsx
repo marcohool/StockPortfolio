@@ -7,7 +7,7 @@ import { CompanyDashboard } from "../../Components/CompanyDashboard/CompanyDashb
 import { Tile } from "../../Components/Tile/Tile";
 import Spinner from "../../Components/Spinner/Spinner";
 import TenKFinder from "../../Components/TenKFinder/TenKFinder";
-import { formatLargeMonetaryNumber } from "../../Components/Helpers/NumberFormatting";
+import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
 
 interface Props {}
 
