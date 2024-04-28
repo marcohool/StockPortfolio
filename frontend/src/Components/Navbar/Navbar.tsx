@@ -20,9 +20,11 @@ const Navbar: React.FC<Props> = (props) => {
           </div>
         </div>
         <div className="hidden lg:flex items-center space-x-6 text-back">
-          <div className="hover:text-darkBlue">Login</div>
+          <Link to="/login">
+            <div className="hover:text-darkBlue">Login</div>
+          </Link>
           <a
-            href=""
+            href="/register"
             className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
           >
             Signup
