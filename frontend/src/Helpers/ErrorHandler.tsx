@@ -20,6 +20,8 @@ export const handleError = (error: any) => {
       window.history.pushState({}, "LoginPage", "/login");
     }
 
-    toast.warning(err?.data);
+    toast.warning(
+      `An error occurred, please try again later. Error: ${err?.data}`,
+    );
   }
 };
