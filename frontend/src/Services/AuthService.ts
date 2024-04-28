@@ -16,14 +16,14 @@ export const loginAPI = async (username: string, password: string) => {
 };
 
 export const registerAPI = async (
-  email: string,
   username: string,
+  email: string,
   password: string,
 ) => {
   try {
     return await axios.post<UserProfileToken>(`${api}/Account/register`, {
-      email: email,
       username: username,
+      email: email,
       password: password,
     });
   } catch (error) {
