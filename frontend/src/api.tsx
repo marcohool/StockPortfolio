@@ -18,10 +18,17 @@ interface ApiResponse<T> {
   error?: string;
 }
 
+const apiClient = axios.create({
+  baseURL: "https://financialmodelingprep.com/api/v3",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const searchCompanies = async (query: string) => {
   try {
-    return await axios.get<SearchResponse>(
-      `https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<SearchResponse>(
+      `search?query=${query}&limit=10&exchange=NASDAQ&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -29,7 +36,7 @@ export const searchCompanies = async (query: string) => {
       return error.message;
     } else {
       console.log("unexpected error: ", error);
-      return "An expected error has occured.";
+      return "An expected error has occurred.";
     }
   }
 };
@@ -38,8 +45,8 @@ export const getCompanyProfile = async (
   query: string,
 ): Promise<ApiResponse<CompanyProfile[]>> => {
   try {
-    return await axios.get<CompanyProfile[]>(
-      `https://financialmodelingprep.com/api/v3/profile/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyProfile[]>(
+      `profile/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -56,8 +63,8 @@ export const getKeyMetrics = async (
   query: string,
 ): Promise<ApiResponse<CompanyKeyMetrics[]>> => {
   try {
-    return await axios.get<CompanyKeyMetrics[]>(
-      `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyKeyMetrics[]>(
+      `key-metrics-ttm/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -74,8 +81,8 @@ export const getIncomeStatement = async (
   query: string,
 ): Promise<ApiResponse<CompanyIncomeStatement[]>> => {
   try {
-    return await axios.get<CompanyIncomeStatement[]>(
-      `https://financialmodelingprep.com/api/v3/income-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyIncomeStatement[]>(
+      `income-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -92,8 +99,8 @@ export const getBalanceSheet = async (
   query: string,
 ): Promise<ApiResponse<CompanyBalanceSheet[]>> => {
   try {
-    return await axios.get<CompanyBalanceSheet[]>(
-      `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyBalanceSheet[]>(
+      `balance-sheet-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -110,8 +117,8 @@ export const getCashFlowStatement = async (
   query: string,
 ): Promise<ApiResponse<CompanyCashFlow[]>> => {
   try {
-    return await axios.get<CompanyCashFlow[]>(
-      `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyCashFlow[]>(
+      `cash-flow-statement/${query}?limit=40&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -128,8 +135,8 @@ export const getTenK = async (
   query: string,
 ): Promise<ApiResponse<CompanyTenK[]>> => {
   try {
-    return await axios.get<CompanyTenK[]>(
-      `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-k&page=0&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
+    return await apiClient.get<CompanyTenK[]>(
+      `sec_filings/${query}?type=10-k&page=0&apikey=${process.env.REACT_APP_FMP_API_KEY}`,
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
