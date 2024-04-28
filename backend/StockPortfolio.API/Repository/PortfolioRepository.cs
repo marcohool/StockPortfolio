@@ -24,7 +24,7 @@ namespace StockPortfolio.API.Repository
 
         public async Task<Portfolio> CreateAsync(Portfolio portfolio)
         {
-            await _context.Portfolios.AddAsync(portfolio);
+            _context.Portfolios.Add(portfolio);
             await _context.SaveChangesAsync();
 
             return portfolio;

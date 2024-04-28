@@ -18,17 +18,17 @@ namespace StockPortfolio.API.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Portfolio>().HasKey(p => new { p.AppUserId, p.StockId });
+            builder.Entity<Portfolio>(x => x.HasKey(p => new { p.AppUserId, p.StockId }));
 
             builder
                 .Entity<Portfolio>()
-                .HasOne(p => p.AppUser)
+                .HasOne(u => u.AppUser)
                 .WithMany(u => u.Portfolios)
                 .HasForeignKey(p => p.AppUserId);
 
             builder
                 .Entity<Portfolio>()
-                .HasOne(p => p.Stock)
+                .HasOne(u => u.Stock)
                 .WithMany(u => u.Portfolios)
                 .HasForeignKey(p => p.StockId);
 

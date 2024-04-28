@@ -7,7 +7,7 @@ namespace StockPortfolio.API.Models
     {
         public string AppUserId { get; set; } = string.Empty;
         public int StockId { get; set; }
-        public AppUser AppUser { get; set; } = new();
-        public Stock Stock { get; set; } = new();
+        public AppUser AppUser { get; set; }
+        public Stock Stock { get; set; }
     }
 }

@@ -15,16 +15,19 @@ namespace StockPortfolio.API.Controllers
         private readonly ICommentRepository _commentRepository;
         private readonly IStockRepository _stockRepository;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IFMPService _fmpService;
 
         public CommentController(
             ICommentRepository commentRepository,
             IStockRepository stockRepository,
-            UserManager<AppUser> userManager
+            UserManager<AppUser> userManager,
+            IFMPService fmpService
         )
         {
             _commentRepository = commentRepository;
             _stockRepository = stockRepository;
             _userManager = userManager;
+            _fmpService = fmpService;
         }
 
         [HttpGet]
@@ -55,21 +58,28 @@ namespace StockPortfolio.API.Controllers
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId:int}")]
+        [HttpPost("{symbol:alpha}")]
         public async Task<IActionResult> Create(
-            [FromRoute] int stockId,
+            [FromRoute] string symbol,
             CreateCommentDto commentDto
         )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (!await this._stockRepository.StockExists(stockId))
+            Stock? stock = await _stockRepository.GetBySymbolAsync(symbol);
+
+            if (stock == null)
             {
-                return BadRequest("Stock does not exist");
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+
+                if (stock == null)
+                    return BadRequest("This stock does not exist");
+
+                await _stockRepository.CreateAsync(stock);
             }
 
-            Comment comment = commentDto.ToCommentFromCreateDTO(stockId);
+            Comment comment = commentDto.ToCommentFromCreateDTO(stock.Id);
 
             string username = User.GetUsername();
             comment.AppUser = await _userManager.FindByNameAsync(username);

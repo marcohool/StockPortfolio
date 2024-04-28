@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using StockPortfolio.API.Extensions;
 using StockPortfolio.API.Interfaces;
 using StockPortfolio.API.Models;
+using StockPortfolio.API.Service;
 
 namespace StockPortfolio.API.Controllers
 {
@@ -14,16 +15,19 @@ namespace StockPortfolio.API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IStockRepository _stockRepository;
         private readonly IPortfolioRepository _portfolioRepository;
+        private readonly IFMPService _fmpService;
 
         public PortfolioController(
             UserManager<AppUser> userManager,
             IStockRepository stockRepo,
-            IPortfolioRepository portfolioRepository
+            IPortfolioRepository portfolioRepository,
+            IFMPService fmpService
         )
         {
             _userManager = userManager;
             _stockRepository = stockRepo;
             _portfolioRepository = portfolioRepository;
+            _fmpService = fmpService;
         }
 
         [HttpGet]
@@ -45,7 +49,14 @@ namespace StockPortfolio.API.Controllers
             Stock stock = await _stockRepository.GetBySymbolAsync(symbol);
 
             if (stock == null)
-                return BadRequest("Stock not found");
+            {
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+
+                if (stock == null)
+                    return BadRequest("This stock does not exist");
+
+                await _stockRepository.CreateAsync(stock);
+            }
 
             List<Stock> userPortfolio = await _portfolioRepository.GetUserPortfolio(user);
 
